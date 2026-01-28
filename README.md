@@ -1,185 +1,197 @@
+# LLM-Driven Feature Engineering for Suicide Risk Analysis from Reddit Text
 
+## Project Overview
 
-# LLM-Driven Feature Engineering for Risk Assessment from Unstructured Text
+This academic project explores how Large Language Models (LLMs) can be used as
+**controlled, interpretable feature extractors** to transform unstructured,
+user-generated text into structured variables suitable for quantitative
+analysis.
 
-## Overview
+Using narrative data from Reddit’s **/r/SuicideWatch** subreddit, the project
+designs a **taxonomy-driven, prompt-based feature engineering pipeline** that
+extracts clinically and behaviorally meaningful signals related to suicidal
+ideation, planning behaviors, attempts, mental health traits, reasons/motives,
+and coping mechanisms.
 
-This project investigates how Large Language Models (LLMs) can be systematically
-used to transform unstructured narrative text into **structured, interpretable,
-and analysis-ready features** aligned with predefined risk assessment
-frameworks.
+Rather than focusing on prediction or automated decision-making, the project
+centers on **feature engineering, interpretability, and analytical rigor**.
+The work was completed as part of a graduate-level university course.
 
-Rather than focusing on prediction or model accuracy, the project emphasizes
-**feature engineering as the central analytical task**, treating LLMs as
-controlled information extractors capable of producing consistent, schema-based
-outputs.
-
-The work was completed as part of a graduate-level university course and is
-intended for academic and educational purposes.
+> **Data Note**  
+> Due to the sensitive nature of the content, the dataset used in this project
+> cannot be shared publicly. This repository contains documentation, feature
+> schemas, prompt specifications, and analysis summaries so the methodology is
+> reproducible without exposing raw user data.
 
 ---
 
-## Problem Context
+## Problem Context and Motivation
 
-Many analytical domains rely on free-form textual data such as narratives,
-descriptions, or reports. While such data contains rich contextual information,
-it presents significant challenges:
+Many real-world domains rely on free-form textual data such as narratives,
+descriptions, and self-reported experiences. While these texts contain rich and
+valuable information, they pose significant analytical challenges:
 
 - Lack of consistent structure
 - High manual effort required for annotation
-- Difficulty in applying statistical or quantitative analysis
-- Loss of interpretability when using black-box models
+- Difficulty applying statistical or quantitative methods
+- Reduced interpretability when using black-box models
 
-At the same time, established assessment frameworks exist that define **what
-should be measured**, but not **how to reliably extract those measurements from
-text**.
+In mental health and risk assessment contexts, established conceptual and
+clinical frameworks define **what should be assessed**, but translating
+unstructured narratives into structured indicators remains labor-intensive and
+inconsistent.
 
-This project addresses this gap by exploring whether LLMs can be used to
-*operationalize* conceptual frameworks by converting unstructured text into
-explicit, well-defined features.
+This project addresses that gap by investigating whether **LLMs can operationalize
+predefined assessment frameworks**, converting narrative text into explicit,
+well-defined, and interpretable features suitable for downstream analysis.
 
 ---
 
-## What This Project Does
+## What This Project Does (End-to-End)
 
-At a high level, the project performs the following:
+At a high level, the project implements the following workflow:
 
-1. **Defines a structured taxonomy** of analytically meaningful features grounded
-   in recognized assessment dimensions
-2. **Designs constrained, instruction-based prompts** that guide an LLM to
-   extract those features from raw text
-3. **Standardizes LLM outputs** into a clean, tabular feature schema
-4. **Demonstrates how these features enable downstream analysis**, aggregation,
-   and reporting without reliance on raw text
+### 1. Thread-Based Narrative Construction
+- Reddit threads are organized by grouping the original post with comments from
+  the same author.
+- The unit of analysis becomes a **user-level narrative within a thread**,
+  providing richer context for feature extraction.
 
-The emphasis is on **clarity, reproducibility, and interpretability**, rather
-than automation or scale.
+### 2. Taxonomy-Driven Feature Definition
+- A structured taxonomy is designed to represent analytically meaningful
+  dimensions of suicide risk and mental health.
+- Features are grouped across dimensions such as:
+  - Suicidal or self-harm ideation
+  - Preparatory planning behaviors
+  - Suicide attempts
+  - Methods mentioned
+  - Reasons and motivating factors
+  - DSM-5–aligned mental illness traits
+  - Coping mechanisms and treatment indicators
+- Each feature is explicitly defined to preserve interpretability.
+
+### 3. LLM-Driven Feature Extraction (Prompt as Instrument)
+- A carefully designed, constraint-based prompt instructs the LLM to:
+  - Analyze narrative text
+  - Identify signals aligned with the predefined taxonomy
+  - Output results in a structured, schema-consistent format
+- The prompt is treated as an **analytical instrument**, not an ad-hoc query,
+  emphasizing determinism, clarity, and reproducibility.
+
+### 4. Data Cleaning and Standardization
+- Rows with critical missing fields are removed; invalid authors are excluded.
+- Timestamps are standardized; non-critical missing values are filled with
+  explicit “None” indicators.
+- Categorical features are one-hot encoded to enable statistical analysis.
+
+### 5. Downstream Analysis
+- Exploratory analysis is conducted across behavioral signals and demographics
+  (where available).
+- Statistical tests evaluate relationships between planning behaviors and
+  suicide attempts.
+- Results emphasize **interpretation and insight**, not prediction.
+
+---
+
+## Repository Structure
+
+.
+├── README.md
+├── docs/
+│ ├── Executive_Summary.docx
+│ ├── Taxonomy.docx
+│ ├── Prompt_for_LLM.docx
+│ └── Appendices.docx
+├── slides/
+│ ├── Class_Presentation.pptx
+│ └── Detailed_Presentation_Deck.pptx
+└── schema/
+└── Final_Feature_list.xlsx
+
+
+### Folder Descriptions
+- **docs/**: Conceptual design, taxonomy, prompt specification, and supporting
+  analysis
+- **slides/**: Presentation materials used for academic evaluation
+- **schema/**: Final engineered feature list used for analysis and reporting
+
+---
+
+## Key Results and Findings (Highlights)
+
+### Dataset Scale and Cleaning
+- Initial dataset contained approximately **140k unique users** and **363k rows**.
+- After cleaning and validation:
+  - Users reduced to **~84,798**
+  - Rows reduced to **~225,185**
+- Cleaning ensured analytical reliability and consistency.
+
+### Prevalence of Suicidal / NSSI Signals
+- Among cleaned users, **~92.6% (78,515 / 84,798)** mentioned suicidal or
+  self-harm thoughts at least once.
+
+### Planning and Suicide Attempts
+- Users reporting preparatory planning exhibited higher attempt rates:
+  - No-plan group: **~12.3%**
+  - Plan group: **~19.9%**
+- Statistical testing indicates a significant association between planning and
+  attempts, with odds of attempting approximately **1.78× higher** for users
+  who reported planning behaviors.
+
+### Reasons and Mental Health Traits
+- Approximately **80%** of users cited at least one reason or motive for suicidal
+  thoughts.
+- Family/friend issues and emotional pain emerged as dominant drivers, with
+  observable gender differences.
+- DSM-5–aligned categorization shows mood and anxiety disorders as the most
+  frequently cited mental health traits; mood disorders dominate among users
+  who reported attempts.
+
+### Coping and Treatment Signals
+- Only a small subset of users reported healthy coping mechanisms.
+- Creative and hobby-based coping appeared most frequently among those who did.
+- Treatment signals (e.g., medication, therapy) were limited in frequency, so
+  conclusions are descriptive rather than causal.
 
 ---
 
 ## Key Design Principles
 
-Several principles guided the project design:
-
-### 1. Feature-First Thinking
-Instead of asking *“What can the model predict?”*, the project asks:
-> *“What measurable signals are conceptually meaningful, and how can they be
-reliably extracted?”*
-
-Every feature is:
-- Explicitly defined
-- Justified within the taxonomy
-- Intended to be interpretable by non-technical stakeholders
-
-### 2. Taxonomy-Driven Extraction
-All extraction is grounded in a predefined taxonomy that:
-- Groups related concepts into logical categories
-- Separates behavioral, cognitive, contextual, and historical dimensions
-- Prevents uncontrolled or ambiguous outputs from the LLM
-
-### 3. Prompt as Analytical Instrument
-The LLM prompt is treated as an **instrument**, not a query:
-- Instructions are explicit and constrained
-- Output format is standardized
-- Ambiguity is minimized through clear definitions and examples
-
-### 4. Separation of Concerns
-The project deliberately separates:
-- Conceptual design (taxonomy)
-- Extraction logic (prompt)
-- Representation (feature schema)
-- Interpretation (analysis and reporting)
-
-This separation improves transparency and auditability.
-
----
-
-## Methodology in Detail
-
-### Taxonomy Development
-A structured taxonomy was developed to represent the key dimensions relevant to
-risk assessment in narrative text. Each category was broken down into discrete,
-observable indicators that could be expressed as features.
-
-This step ensured that:
-- Abstract concepts were translated into measurable variables
-- Feature scope was clearly bounded
-- Downstream analysis remained interpretable
-
-### Prompt-Driven Feature Extraction
-A carefully designed prompt instructs the LLM to:
-- Analyze a given narrative
-- Identify signals corresponding to each taxonomy category
-- Output feature values in a structured, consistent format
-
-The prompt prioritizes:
-- Deterministic instructions
-- Explicit constraints
-- Consistent labeling and naming
-
-### Feature Schema Construction
-LLM outputs were converted into a finalized feature schema that:
-- Defines feature names and categories
-- Provides clear definitions for each variable
-- Supports encoding, aggregation, and comparison
-
-This schema functions as the **contract** between unstructured text and
-quantitative analysis.
-
----
-
-## Outputs and Artifacts
-
-The repository contains the following deliverables:
-
-- **Executive Summary** outlining objectives, approach, and conclusions
-- **Taxonomy Documentation** detailing conceptual structure and feature logic
-- **LLM Prompt Specification** describing extraction instructions and constraints
-- **Appendices** with supporting tables and extended explanations
-- **Presentation Decks** for academic evaluation
-- **Final Feature Schema** capturing all engineered variables
-
-No raw text or sensitive datasets are included.
-
----
-
-## Results and Insights
-
-The project demonstrates that:
-
-- LLMs can be used as **structured feature extractors** when guided by strong
-  taxonomies and explicit prompts
-- Feature consistency improves significantly when output constraints are applied
-- Interpretability is preserved when features are explicitly defined and grouped
-- Documentation and schema design play a critical role in LLM-based workflows
-
-Rather than replacing analytical reasoning, LLMs act as a **scaling mechanism for
-feature engineering**, enabling structured analysis of narrative data.
+- **Feature-first thinking**: focus on what should be measured, not what to
+  predict
+- **Taxonomy-driven extraction**: constrain LLM outputs to predefined concepts
+- **Prompt as analytical instrument**: explicit instructions and structured
+  outputs
+- **Separation of concerns**: taxonomy, extraction, schema, and interpretation
+  are deliberately decoupled
 
 ---
 
 ## Key Takeaways
 
-- Feature engineering remains essential, even in LLM-driven systems
-- Taxonomy design directly impacts analytical quality
-- Prompts should be treated as analytical instruments, not ad-hoc queries
-- Structured outputs enable transparency, auditing, and reuse
-- LLMs are most effective when constrained, not when left open-ended
+- LLMs can function effectively as **structured feature extractors** when
+  constrained by strong taxonomies and prompts
+- Feature engineering remains a critical analytical skill in LLM-based workflows
+- Interpretability and reproducibility improve with explicit schema design
+- Narrative text can be analyzed quantitatively without exposing raw content
+- LLMs are most useful when **guided and constrained**, not used as black boxes
 
 ---
 
-## Limitations and Academic Scope
+## Dataset and Privacy
 
-- This is an academic, exploratory project
-- No claims are made regarding real-world deployment or clinical use
-- Results depend on prompt design and conceptual framing
-- Findings should be interpreted within an educational context
+This project uses sensitive, user-generated mental health content.
+To ensure ethical and responsible use:
+
+- Raw text, usernames, and full datasets are **not included**
+- Only documentation, schema, prompts, and aggregated results are shared
+- Dataset access may be discussed privately for academic review if required
 
 ---
 
-## Academic Use and Disclaimer
+## Academic Scope and Disclaimer
 
-This project was completed as part of a university course and is intended solely
-for academic and educational purposes. It does not provide diagnostic,
-predictive, or operational recommendations.
-
+- This is an exploratory academic project
+- It is not intended for clinical, diagnostic, or operational use
+- No automated intervention or risk scoring is proposed
+- Findings should be interpreted strictly within an educational context
