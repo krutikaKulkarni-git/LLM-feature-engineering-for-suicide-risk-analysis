@@ -1,6 +1,6 @@
 # Presentations
 
-This folder contains presentation materials created for the class project.
+This folder contains presentation material.
 The slides summarize the project objectives, methodology, feature engineering
 approach, and key findings at different levels of detail.
 
