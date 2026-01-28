@@ -2,164 +2,184 @@
 
 # LLM-Driven Feature Engineering for Risk Assessment from Unstructured Text
 
-This repository contains the documentation, presentation materials, and feature
-schema for a graduate-level class project focused on converting unstructured
-text into structured, analytically meaningful features using Large Language
-Models (LLMs).
+## Overview
 
-The project emphasizes **feature engineering, taxonomy design, and prompt-driven
-extraction**, rather than model training or deployment.
+This project investigates how Large Language Models (LLMs) can be systematically
+used to transform unstructured narrative text into **structured, interpretable,
+and analysis-ready features** aligned with predefined risk assessment
+frameworks.
 
----
+Rather than focusing on prediction or model accuracy, the project emphasizes
+**feature engineering as the central analytical task**, treating LLMs as
+controlled information extractors capable of producing consistent, schema-based
+outputs.
 
-## 1. Project Motivation
-
-Many real-world domains rely on unstructured textual data (e.g., narratives,
-reports, free-text responses) that are difficult to analyze using traditional
-statistical or machine learning techniques.
-
-In sensitive and high-stakes contexts, structured assessment frameworks exist,
-but mapping free-form text to these frameworks is labor-intensive and
-inconsistent.
-
-This project explores how **LLMs can be used as structured feature extractors**
-to bridge this gap by:
-- Translating unstructured text into predefined analytical features
-- Preserving interpretability and alignment with domain frameworks
-- Enabling downstream quantitative analysis without exposing raw text
+The work was completed as part of a graduate-level university course and is
+intended for academic and educational purposes.
 
 ---
 
-## 2. Project Objective
+## Problem Context
 
-The primary objectives of this project are:
+Many analytical domains rely on free-form textual data such as narratives,
+descriptions, or reports. While such data contains rich contextual information,
+it presents significant challenges:
 
-- To design a **taxonomy of risk-related features** grounded in established
-  assessment dimensions
-- To develop **prompt-driven LLM instructions** that reliably extract these
-  features from unstructured text
-- To produce a **clean, structured feature schema** suitable for analysis and
-  reporting
-- To evaluate the feasibility and consistency of LLM-based feature engineering
-  for academic analytical workflows
+- Lack of consistent structure
+- High manual effort required for annotation
+- Difficulty in applying statistical or quantitative analysis
+- Loss of interpretability when using black-box models
 
----
+At the same time, established assessment frameworks exist that define **what
+should be measured**, but not **how to reliably extract those measurements from
+text**.
 
-## 3. Methodology Overview
-
-The project follows a **documentation-first, analysis-ready** approach.
-
-### 3.1 Conceptual Design
-- Defined a structured taxonomy representing key behavioral, cognitive, and
-  contextual dimensions
-- Mapped abstract concepts into measurable, discrete features
-- Ensured interpretability and logical grouping for downstream analysis
-
-### 3.2 Prompt-Driven Feature Extraction
-- Designed structured prompts instructing the LLM to:
-  - Read unstructured narratives
-  - Identify relevant signals aligned with the taxonomy
-  - Output features in a consistent, structured format
-- Focused on reproducibility, clarity, and constraint-based prompting
-
-### 3.3 Feature Engineering Output
-- Converted LLM outputs into tabular, schema-driven feature representations
-- Standardized feature naming, categories, and definitions
-- Prepared features for aggregation, encoding, and statistical analysis
+This project addresses this gap by exploring whether LLMs can be used to
+*operationalize* conceptual frameworks by converting unstructured text into
+explicit, well-defined features.
 
 ---
 
-## 4. Repository Structure
+## What This Project Does
 
+At a high level, the project performs the following:
 
-├── README.md
-├── docs/
-│ ├── Executive_Summary.docx
-│ ├── Taxonomy.docx
-│ ├── Prompt_for_LLM.docx
-│ └── Appendices.docx
-├── slides/
-│ ├── Class_Presentation.pptx
-│ └── Detailed_Presentation_Deck.pptx
-└── schema/
-└── Final_Feature_list.xlsx
+1. **Defines a structured taxonomy** of analytically meaningful features grounded
+   in recognized assessment dimensions
+2. **Designs constrained, instruction-based prompts** that guide an LLM to
+   extract those features from raw text
+3. **Standardizes LLM outputs** into a clean, tabular feature schema
+4. **Demonstrates how these features enable downstream analysis**, aggregation,
+   and reporting without reliance on raw text
 
-
-
-### Folder Descriptions
-
-#### `docs/`
-Contains the core written documentation:
-- **Executive Summary** – high-level overview, objectives, and conclusions
-- **Taxonomy** – conceptual framework and feature categorization
-- **Prompt for LLM** – detailed prompt design and extraction logic
-- **Appendices** – supplementary analysis, tables, and clarifications
-
-#### `slides/`
-Presentation materials used for academic evaluation:
-- A concise in-class presentation
-- A detailed deck covering methodology, examples, and findings
-
-#### `schema/`
-The finalized feature schema:
-- Master list of engineered features
-- Feature categories, definitions, and intended interpretation
+The emphasis is on **clarity, reproducibility, and interpretability**, rather
+than automation or scale.
 
 ---
 
-## 5. Data Availability
+## Key Design Principles
 
-Due to the sensitive nature of the subject matter, **raw textual data and
-derived datasets are not included in this repository**.
+Several principles guided the project design:
 
-This repository focuses on:
-- Methodology
-- Feature design
-- Documentation and analytical structure
+### 1. Feature-First Thinking
+Instead of asking *“What can the model predict?”*, the project asks:
+> *“What measurable signals are conceptually meaningful, and how can they be
+reliably extracted?”*
 
-Data may be made available upon academic request where appropriate.
+Every feature is:
+- Explicitly defined
+- Justified within the taxonomy
+- Intended to be interpretable by non-technical stakeholders
 
----
+### 2. Taxonomy-Driven Extraction
+All extraction is grounded in a predefined taxonomy that:
+- Groups related concepts into logical categories
+- Separates behavioral, cognitive, contextual, and historical dimensions
+- Prevents uncontrolled or ambiguous outputs from the LLM
 
-## 6. Results and Outcomes
+### 3. Prompt as Analytical Instrument
+The LLM prompt is treated as an **instrument**, not a query:
+- Instructions are explicit and constrained
+- Output format is standardized
+- Ambiguity is minimized through clear definitions and examples
 
-Key outcomes of the project include:
+### 4. Separation of Concerns
+The project deliberately separates:
+- Conceptual design (taxonomy)
+- Extraction logic (prompt)
+- Representation (feature schema)
+- Interpretation (analysis and reporting)
 
-- A clearly defined **feature taxonomy** that translates abstract risk concepts
-  into structured variables
-- A **prompt framework** capable of producing consistent, schema-aligned feature
-  outputs from unstructured text
-- A finalized **feature list** suitable for:
-  - Statistical analysis
-  - Aggregation and encoding
-  - Dashboarding and reporting
-- Demonstration of LLMs as **feature engineering tools**, not black-box predictors
-
-The results indicate that prompt-driven LLMs can support structured analytical
-workflows when combined with strong taxonomy design and clear constraints.
-
----
-
-## 7. Academic Context and Limitations
-
-- This project was completed as part of a university course.
-- It is intended for **educational and exploratory purposes only**.
-- No clinical, diagnostic, or operational claims are made.
-- Findings should not be interpreted as production-ready or decision-making
-  systems.
+This separation improves transparency and auditability.
 
 ---
 
-## 8. Key Takeaways
+## Methodology in Detail
 
-- LLMs can function as **structured information extractors**, not just generators
-- Strong taxonomy design is critical for interpretability
-- Feature engineering remains a central analytical skill even in LLM-driven
-  workflows
-- Documentation and schema design are as important as modeling
+### Taxonomy Development
+A structured taxonomy was developed to represent the key dimensions relevant to
+risk assessment in narrative text. Each category was broken down into discrete,
+observable indicators that could be expressed as features.
+
+This step ensured that:
+- Abstract concepts were translated into measurable variables
+- Feature scope was clearly bounded
+- Downstream analysis remained interpretable
+
+### Prompt-Driven Feature Extraction
+A carefully designed prompt instructs the LLM to:
+- Analyze a given narrative
+- Identify signals corresponding to each taxonomy category
+- Output feature values in a structured, consistent format
+
+The prompt prioritizes:
+- Deterministic instructions
+- Explicit constraints
+- Consistent labeling and naming
+
+### Feature Schema Construction
+LLM outputs were converted into a finalized feature schema that:
+- Defines feature names and categories
+- Provides clear definitions for each variable
+- Supports encoding, aggregation, and comparison
+
+This schema functions as the **contract** between unstructured text and
+quantitative analysis.
 
 ---
 
-## 9. License
+## Outputs and Artifacts
 
-This repository is shared for academic and educational review only.
+The repository contains the following deliverables:
+
+- **Executive Summary** outlining objectives, approach, and conclusions
+- **Taxonomy Documentation** detailing conceptual structure and feature logic
+- **LLM Prompt Specification** describing extraction instructions and constraints
+- **Appendices** with supporting tables and extended explanations
+- **Presentation Decks** for academic evaluation
+- **Final Feature Schema** capturing all engineered variables
+
+No raw text or sensitive datasets are included.
+
+---
+
+## Results and Insights
+
+The project demonstrates that:
+
+- LLMs can be used as **structured feature extractors** when guided by strong
+  taxonomies and explicit prompts
+- Feature consistency improves significantly when output constraints are applied
+- Interpretability is preserved when features are explicitly defined and grouped
+- Documentation and schema design play a critical role in LLM-based workflows
+
+Rather than replacing analytical reasoning, LLMs act as a **scaling mechanism for
+feature engineering**, enabling structured analysis of narrative data.
+
+---
+
+## Key Takeaways
+
+- Feature engineering remains essential, even in LLM-driven systems
+- Taxonomy design directly impacts analytical quality
+- Prompts should be treated as analytical instruments, not ad-hoc queries
+- Structured outputs enable transparency, auditing, and reuse
+- LLMs are most effective when constrained, not when left open-ended
+
+---
+
+## Limitations and Academic Scope
+
+- This is an academic, exploratory project
+- No claims are made regarding real-world deployment or clinical use
+- Results depend on prompt design and conceptual framing
+- Findings should be interpreted within an educational context
+
+---
+
+## Academic Use and Disclaimer
+
+This project was completed as part of a university course and is intended solely
+for academic and educational purposes. It does not provide diagnostic,
+predictive, or operational recommendations.
+
